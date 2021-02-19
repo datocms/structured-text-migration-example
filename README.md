@@ -1,6 +1,6 @@
 # Structured Text Example Migration
 
-This repo contains the code for the [Migrating content to Structured Text](https://www.datocms.com/docs/pro-tips/migrating-content-to-structured-text) tutorial.
+This repo contains the code for the [Migrating content to Structured Text](https://www.datocms.com/docs/structured-text/migrating-content-to-structured-text) tutorial.
 
 ## How to run the migrations
 
