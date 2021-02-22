@@ -10,8 +10,8 @@
   "license": "ISC",
   "devDependencies": {
     "datocms-client": "^3.3.0",
-    "datocms-html-to-structured-text": "1.0.10",
-    "datocms-structured-text-utils": "1.0.10",
+    "datocms-html-to-structured-text": "1.0.12",
+    "datocms-structured-text-utils": "1.0.12",
     "mdast-util-to-hast": "^10.2.0",
     "parse5": "^6.0.1",
     "remark-parse": "^9.0.0",
