@@ -10,12 +10,12 @@
   "license": "ISC",
   "devDependencies": {
     "datocms-client": "^3.3.0",
-    "datocms-html-to-structured-text": "1.0.12",
-    "datocms-structured-text-utils": "1.0.12",
+    "datocms-html-to-structured-text": "1.0.13",
+    "datocms-structured-text-utils": "1.0.13",
     "mdast-util-to-hast": "^10.2.0",
     "parse5": "^6.0.1",
     "remark-parse": "^9.0.0",
-    "unified": "^9.2.0",
+    "unified": "^9.2.1",
     "unist-util-inspect": "^6.0.1",
     "unist-utils-core": "^1.0.5"
   }
