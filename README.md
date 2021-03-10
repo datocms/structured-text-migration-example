@@ -6,7 +6,7 @@ This repo contains the code for the [Migrating content to Structured Text](https
 
 First of all, clone the [example project](https://dashboard.datocms.com/projects/duplicate-template?id=42030&name=Structured+Text+demo) into your account.
 
-![https://dashboard.datocms.com/clone/button.svg](https://dashboard.datocms.com/projects/duplicate-template?id=42030&name=Structured+Text+demo)
+[![Clone DatoCMS project](https://dashboard.datocms.com/clone/button.svg)](https://dashboard.datocms.com/projects/duplicate-template?id=42030&name=Structured+Text+demo)
 
 Then inside the project root folder, run the following commands:
 
