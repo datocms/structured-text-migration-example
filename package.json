@@ -18,5 +18,8 @@
     "unified": "^9.2.1",
     "unist-util-inspect": "^6.0.1",
     "unist-utils-core": "^1.0.5"
+  },
+  "dependencies": {
+    "prettier": "^2.5.0"
   }
 }

@@ -1,28 +1,28 @@
-"use strict";
+'use strict';
 
-const { validate } = require("datocms-structured-text-utils");
+const { validate } = require('datocms-structured-text-utils');
 
-const getModelIdsByApiKey = require("./utils/getModelIdsByApiKey");
-const createStructuredTextFieldFrom = require("./utils/createStructuredTextFieldFrom");
-const getAllRecords = require("./utils/getAllRecords");
-const swapFields = require("./utils/swapFields");
-const markdownToStructuredText = require("./utils/markdownToStructuredText");
+const getModelIdsByApiKey = require('./utils/getModelIdsByApiKey');
+const createStructuredTextFieldFrom = require('./utils/createStructuredTextFieldFrom');
+const getAllRecords = require('./utils/getAllRecords');
+const swapFields = require('./utils/swapFields');
+const markdownToStructuredText = require('./utils/markdownToStructuredText');
 
 module.exports = async (client) => {
   const modelIds = await getModelIdsByApiKey(client);
 
   await createStructuredTextFieldFrom(
     client,
-    "modular_content_article",
-    "content",
-    [modelIds.image_block.id]
+    'modular_content_article',
+    'content',
+    [modelIds.image_block.id],
   );
 
-  const records = await getAllRecords(client, "modular_content_article");
+  const records = await getAllRecords(client, 'modular_content_article');
 
   for (const record of records) {
     const rootNode = {
-      type: "root",
+      type: 'root',
       children: [],
     };
 
@@ -30,16 +30,19 @@ module.exports = async (client) => {
       switch (block.relationships.itemType.data.id) {
         case modelIds.text_block.id: {
           const markdownSt = await markdownToStructuredText(
-            block.attributes.text
+            block.attributes.text,
           );
           if (markdownSt) {
-            rootNode.children = [...rootNode.children, ...markdownSt.document.children];
+            rootNode.children = [
+              ...rootNode.children,
+              ...markdownSt.document.children,
+            ];
           }
           break;
         }
         case modelIds.code_block.id: {
           rootNode.children.push({
-            type: "code",
+            type: 'code',
             language: block.attributes.language,
             code: block.attributes.code,
           });
@@ -52,7 +55,7 @@ module.exports = async (client) => {
           delete block.attributes.updatedAt;
 
           rootNode.children.push({
-            type: "block",
+            type: 'block',
             item: block,
           });
           break;
@@ -61,7 +64,7 @@ module.exports = async (client) => {
     }
 
     const result = {
-      schema: "dast",
+      schema: 'dast',
       document: rootNode,
     };
 
@@ -76,10 +79,10 @@ module.exports = async (client) => {
       structuredTextContent: result,
     });
 
-    if (record.meta.status !== "draft") {
+    if (record.meta.status !== 'draft') {
       await client.items.publish(record.id);
     }
   }
 
-  await swapFields(client, "modular_content_article", "content");
+  await swapFields(client, 'modular_content_article', 'content');
 };

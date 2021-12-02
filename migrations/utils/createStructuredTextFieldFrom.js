@@ -2,10 +2,10 @@ module.exports = async function createStructuredTextFieldFrom(
   client,
   modelApiKey,
   fieldApiKey,
-  modelBlockIds
+  modelBlockIds,
 ) {
   const legacyField = await client.fields.find(
-    `${modelApiKey}::${fieldApiKey}`
+    `${modelApiKey}::${fieldApiKey}`,
   );
 
   const newApiKey = `structured_text_${fieldApiKey}`;
@@ -15,7 +15,7 @@ module.exports = async function createStructuredTextFieldFrom(
   return client.fields.create(modelApiKey, {
     label,
     apiKey: newApiKey,
-    fieldType: "structured_text",
+    fieldType: 'structured_text',
     fieldset: legacyField.fieldset,
     validators: {
       structuredTextBlocks: {

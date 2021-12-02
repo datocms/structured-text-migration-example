@@ -1,7 +1,7 @@
-const parse5 = require("parse5");
-const { parse5ToStructuredText } = require("datocms-html-to-structured-text");
-const { validate } = require("datocms-structured-text-utils");
-const inspect = require("unist-util-inspect");
+const parse5 = require('parse5');
+const { parse5ToStructuredText } = require('datocms-html-to-structured-text');
+const { validate } = require('datocms-structured-text-utils');
+const inspect = require('unist-util-inspect');
 
 module.exports = async function htmlToStructuredText(text, settings) {
   if (!text) {
@@ -12,7 +12,7 @@ module.exports = async function htmlToStructuredText(text, settings) {
     parse5.parse(text, {
       sourceCodeLocationInfo: true,
     }),
-    settings
+    settings,
   );
 
   const validationResult = validate(result);

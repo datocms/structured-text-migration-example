@@ -3,9 +3,8 @@ const path = require('path');
 module.exports = async function findOrCreateUploadWithUrl(client, url) {
   let upload;
 
-  if (url.startsWith("https://www.datocms-assets.com")) {
-    const pattern = path.basename(url).replace(/^[0-9]+\-/, "");
-    console.log(pattern);
+  if (url.startsWith('https://www.datocms-assets.com')) {
+    const pattern = path.basename(url).replace(/^[0-9]+\-/, '');
 
     const matchingUploads = await client.uploads.all({
       filter: {
