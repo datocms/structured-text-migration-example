@@ -12,5 +12,5 @@ Then inside the project root folder, run the following commands:
 
 ```
 npm install
-migrate --destination=with-structured-text --token=<YOUR_READWRITE-TOKEN>
+dato migrate --destination=with-structured-text --token=<YOUR_READWRITE-TOKEN>
 ```
