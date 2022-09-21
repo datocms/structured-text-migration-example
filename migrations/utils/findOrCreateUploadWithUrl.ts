@@ -1,12 +1,16 @@
-const path = require('path');
+import { Client } from '@datocms/cli/lib/cma-client-node';
+import path from 'path';
 
-module.exports = async function findOrCreateUploadWithUrl(client, url) {
+export default async function findOrCreateUploadWithUrl(
+  client: Client,
+  url: string,
+) {
   let upload;
 
   if (url.startsWith('https://www.datocms-assets.com')) {
     const pattern = path.basename(url).replace(/^[0-9]+\-/, '');
 
-    const matchingUploads = await client.uploads.all({
+    const matchingUploads = await client.uploads.list({
       filter: {
         fields: {
           filename: {
@@ -26,9 +30,8 @@ module.exports = async function findOrCreateUploadWithUrl(client, url) {
   }
 
   if (!upload) {
-    const uploadPath = await client.createUploadPath(url);
-    upload = await client.uploads.create({ path: uploadPath });
+    upload = await client.uploads.createFromUrl({ url });
   }
 
   return upload;
-};
+}

@@ -1,37 +1,46 @@
-'use strict';
+import { Document, Node, validate } from 'datocms-structured-text-utils';
+import getModelIdsByApiKey from './utils/getModelIdsByApiKey';
+import createStructuredTextFieldFrom from './utils/createStructuredTextFieldFrom';
+import getAllRecords from './utils/getAllRecords';
+import swapFields from './utils/swapFields';
+import markdownToStructuredText from './utils/markdownToStructuredText';
+import convertImgsToBlocks from './utils/convertImgsToBlocks';
+import { Client, SimpleSchemaTypes } from '@datocms/cli/lib/cma-client-node';
 
-const { validate } = require('datocms-structured-text-utils');
+type ModularArticleType = SimpleSchemaTypes.Item & {
+  title: string;
+  content: any;
+};
 
-const getModelIdsByApiKey = require('./utils/getModelIdsByApiKey');
-const createStructuredTextFieldFrom = require('./utils/createStructuredTextFieldFrom');
-const getAllRecords = require('./utils/getAllRecords');
-const swapFields = require('./utils/swapFields');
-const markdownToStructuredText = require('./utils/markdownToStructuredText');
-
-module.exports = async (client) => {
+export default async function (client: Client) {
   const modelIds = await getModelIdsByApiKey(client);
 
   await createStructuredTextFieldFrom(
     client,
     'modular_content_article',
     'content',
-    [modelIds.image_block.id],
+    [modelIds.image_block.id, modelIds.text_block.id, modelIds.code_block.id],
   );
 
-  const records = await getAllRecords(client, 'modular_content_article');
+  const records = (await getAllRecords(
+    client,
+    'modular_content_article',
+  )) as ModularArticleType[];
 
   for (const record of records) {
     const rootNode = {
       type: 'root',
-      children: [],
+      children: [] as Node[],
     };
 
     for (const block of record.content) {
-      switch (block.relationships.itemType.data.id) {
+      switch (block.relationships.item_type.data.id) {
         case modelIds.text_block.id: {
           const markdownSt = await markdownToStructuredText(
             block.attributes.text,
+            convertImgsToBlocks(client, modelIds),
           );
+
           if (markdownSt) {
             rootNode.children = [
               ...rootNode.children,
@@ -40,6 +49,7 @@ module.exports = async (client) => {
           }
           break;
         }
+
         case modelIds.code_block.id: {
           rootNode.children.push({
             type: 'code',
@@ -51,8 +61,8 @@ module.exports = async (client) => {
         default: {
           delete block.id;
           delete block.meta;
-          delete block.attributes.createdAt;
-          delete block.attributes.updatedAt;
+          delete block.createdAt;
+          delete block.updatedAt;
 
           rootNode.children.push({
             type: 'block',
@@ -66,17 +76,16 @@ module.exports = async (client) => {
     const result = {
       schema: 'dast',
       document: rootNode,
-    };
+    } as Document;
 
     const validationResult = validate(result);
 
     if (!validationResult.valid) {
-      console.log(inspect(result));
       throw new Error(validationResult.message);
     }
 
     await client.items.update(record.id, {
-      structuredTextContent: result,
+      structured_text_content: result,
     });
 
     if (record.meta.status !== 'draft') {
@@ -85,4 +94,4 @@ module.exports = async (client) => {
   }
 
   await swapFields(client, 'modular_content_article', 'content');
-};
+}
