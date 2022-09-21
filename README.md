@@ -10,7 +10,7 @@ Install the `@datocms/cli` to manage migrations
 npm install -g @datocms/cli
 ```
 
-The `datocms.config.json` file can be customized according to your preferences. Read more about the [cli configuration here](https://www.datocms.com/docs/scripting-migrations/installing-the-cli)
+The `datocms.config.json` file can be customized according to your preferences. Read more about the [CLI configuration here](https://www.datocms.com/docs/scripting-migrations/installing-the-cli)
 
 ## How to test the example project
 
