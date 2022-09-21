@@ -16,7 +16,7 @@ The `datocms.config.json` file can be customized according to your preferences. 
 
 Clone the [example project](https://dashboard.datocms.com/projects/duplicate-template?id=42030&name=Structured+Text+demo) into your account.
 
-Copy the read-write token from settings > API tokens
+Copy the read-write token from Settings > API tokens inside the `.env` file.
 
 [![Clone DatoCMS project](https://dashboard.datocms.com/clone/button.svg?)](https://dashboard.datocms.com/projects/duplicate-template?id=42030&name=Structured+Text+demo)
 
@@ -24,7 +24,7 @@ Then inside the project root folder, run the following commands:
 
 ```
 npm install
-datocms migrate:run --destination=with-structured-text --api-token=<YOUR_READWRITE-TOKEN>
+datocms migrate:run --destination=with-structured-text
 ```
 
 ## Create a new migration
@@ -32,5 +32,5 @@ datocms migrate:run --destination=with-structured-text --api-token=<YOUR_READWRI
 To create a new migration use this command. The DatoCMS cli will generate a new migration, based on the settings specified in the `datocms.config.json` file
 
 ```
-datocms migrate:new --token=<YOUR_READWRITE-TOKEN> --ts
+datocms migrate:new
 ```
