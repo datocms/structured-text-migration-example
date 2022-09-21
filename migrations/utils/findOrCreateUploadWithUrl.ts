@@ -1,14 +1,14 @@
-import { Client } from "@datocms/cma-client-node";
-import path from "path";
+import { Client } from '@datocms/cli/lib/cma-client-node';
+import path from 'path';
 
 export default async function findOrCreateUploadWithUrl(
   client: Client,
-  url: string
+  url: string,
 ) {
   let upload;
 
-  if (url.startsWith("https://www.datocms-assets.com")) {
-    const pattern = path.basename(url).replace(/^[0-9]+\-/, "");
+  if (url.startsWith('https://www.datocms-assets.com')) {
+    const pattern = path.basename(url).replace(/^[0-9]+\-/, '');
 
     const matchingUploads = await client.uploads.list({
       filter: {

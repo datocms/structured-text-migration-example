@@ -1,23 +1,23 @@
-import parse5 from "parse5";
+import { parse } from 'parse5';
 import {
   parse5ToStructuredText,
   Options,
-} from "datocms-html-to-structured-text";
-import { validate } from "datocms-structured-text-utils";
+} from 'datocms-html-to-structured-text';
+import { validate } from 'datocms-structured-text-utils';
 
 export default async function htmlToStructuredText(
   html: string,
-  settings: Options
+  settings: Options,
 ) {
   if (!html) {
     return null;
   }
 
   const result = await parse5ToStructuredText(
-    parse5.parse(html, {
+    parse(html, {
       sourceCodeLocationInfo: true,
     }),
-    settings
+    settings,
   );
 
   const validationResult = validate(result);

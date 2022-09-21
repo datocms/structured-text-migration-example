@@ -2,7 +2,6 @@
   "profiles": {
     "default": {
       "logLevel": "NONE",
-      "ts": "true",
       "migrations": {
         "directory": "./migrations",
         "modelApiKey": "schema_migration"

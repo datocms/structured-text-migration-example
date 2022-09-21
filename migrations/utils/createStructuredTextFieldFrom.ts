@@ -1,19 +1,13 @@
-import { Client } from "@datocms/cma-client-node";
-import {
-  Field,
-  ItemTypeIdentity,
-} from "@datocms/cma-client/dist/types/generated/SimpleSchemaTypes";
+import { Client, SimpleSchemaTypes } from '@datocms/cli/lib/cma-client-node';
 
 export default async function createStructuredTextFieldFrom(
   client: Client,
   modelApiKey: string,
   fieldApiKey: string,
-  modelBlockIds: ItemTypeIdentity[]
-): Promise<Field> {
-  console.log(`${modelApiKey}::${fieldApiKey}`);
-
+  modelBlockIds: SimpleSchemaTypes.ItemTypeIdentity[],
+): Promise<SimpleSchemaTypes.Field> {
   const legacyField = await client.fields.find(
-    `${modelApiKey}::${fieldApiKey}`
+    `${modelApiKey}::${fieldApiKey}`,
   );
 
   const newApiKey = `structured_text_${fieldApiKey}`;
@@ -24,7 +18,7 @@ export default async function createStructuredTextFieldFrom(
   return client.fields.create(modelApiKey, {
     label,
     api_key: newApiKey,
-    field_type: "structured_text",
+    field_type: 'structured_text',
     fieldset: legacyField.fieldset,
     validators: {
       structured_text_blocks: {
