@@ -14,11 +14,11 @@ The `datocms.config.json` file can be customized according to your preferences. 
 
 ## How to test the example project
 
-Clone the [example project](https://dashboard.datocms.com/projects/duplicate-template?id=42030&name=Structured+Text+demo) into your account.
-
-Copy the read-write token from Settings > API tokens inside the `.env` file.
+Clone the example DatoCMS project into your account using the button below:
 
 [![Clone DatoCMS project](https://dashboard.datocms.com/clone/button.svg?)](https://dashboard.datocms.com/projects/duplicate-template?id=42030&name=Structured+Text+demo)
+
+Copy the read-write token from Settings > API tokens inside the `.env` file.
 
 Then inside the project root folder, run the following commands:
 
@@ -32,5 +32,5 @@ datocms migrate:run --destination=with-structured-text
 To create a new migration use this command. The DatoCMS cli will generate a new migration, based on the settings specified in the `datocms.config.json` file
 
 ```
-datocms migrate:new
+datocms migrate:new <nameOfMigrationScript>
 ```
