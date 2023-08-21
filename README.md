@@ -16,7 +16,7 @@ The `datocms.config.json` file can be customized according to your preferences. 
 
 Clone the example DatoCMS project into your account using the button below:
 
-[![Clone DatoCMS project](https://dashboard.datocms.com/clone/button.svg?)](https://dashboard.datocms.com/projects/duplicate-template?id=42030&name=Structured+Text+demo)
+[![Clone DatoCMS project](https://dashboard.datocms.com/clone/button.svg?)](https://dashboard.datocms.com/clone?projectId=42030&name=Demo%3A+Migrating+to+Structured+Text)
 
 Copy the read-write token from Settings > API tokens inside the `.env` file.
 
